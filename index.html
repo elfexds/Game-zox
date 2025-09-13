@@ -2,8 +2,8 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Squid Game 3</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+  <title>Game Zox</title>
   <style>
     html, body {
       margin: 0;
@@ -11,6 +11,7 @@
       height: 100%;
       background: #000;
       overflow: hidden;
+      font-family: sans-serif;
     }
     #unity-container {
       width: 100%;
@@ -18,24 +19,28 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      background: #000;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
     #unity-canvas {
       width: 100%;
       height: 100%;
       background: #000;
     }
-    #unity-loading-bar {
+    #loading-bar {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 50%;
+      width: 60%;
       height: 20px;
       background: #333;
       border-radius: 10px;
       overflow: hidden;
     }
-    #unity-progress-bar-full {
+    #progress {
       width: 0%;
       height: 100%;
       background: #09f;
@@ -45,36 +50,33 @@
 <body>
   <div id="unity-container">
     <canvas id="unity-canvas"></canvas>
-    <div id="unity-loading-bar">
-      <div id="unity-progress-bar-full"></div>
-    </div>
+    <div id="loading-bar"><div id="progress"></div></div>
   </div>
 
   <script>
-    const buildUrl = ".";
-    const loaderUrl = buildUrl + "/game.loader.js";
-
+    // Archivos del juego en el mismo directorio
+    const loaderUrl = "UnityLoader.js";
     const config = {
-      dataUrl: buildUrl + "/game.data.unityweb",
-      frameworkUrl: buildUrl + "/game.framework.js.unityweb",
-      codeUrl: buildUrl + "/game.wasm.unityweb",
+      dataUrl: "game.data.unityweb",
+      frameworkUrl: "game.wasm.framework.unityweb",
+      codeUrl: "game.wasm.code.unityweb",
       streamingAssetsUrl: "StreamingAssets",
       companyName: "DefaultCompany",
-      productName: "Squid Game 3",
+      productName: "Game Zox",
       productVersion: "1.0",
       decompressionFallback: true
     };
 
-    const canvas = document.querySelector("#unity-canvas");
-    const progressBarFull = document.querySelector("#unity-progress-bar-full");
+    const canvas = document.getElementById("unity-canvas");
+    const progressBar = document.getElementById("progress");
 
     const script = document.createElement("script");
     script.src = loaderUrl;
     script.onload = () => {
       createUnityInstance(canvas, config, (progress) => {
-        progressBarFull.style.width = (100 * progress) + "%";
+        progressBar.style.width = (progress * 100) + "%";
       }).then(() => {
-        document.querySelector("#unity-loading-bar").style.display = "none";
+        document.getElementById("loading-bar").style.display = "none";
       }).catch((err) => {
         alert("Error al cargar el juego: " + err);
       });
