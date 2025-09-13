@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
   <title>Game Zox</title>
   <style>
     html, body {
@@ -11,7 +11,6 @@
       height: 100%;
       background: #000;
       overflow: hidden;
-      font-family: sans-serif;
     }
     #unity-container {
       width: 100%;
@@ -54,7 +53,6 @@
   </div>
 
   <script>
-    // Archivos del juego en el mismo directorio
     const loaderUrl = "UnityLoader.js";
     const config = {
       dataUrl: "game.data.unityweb",
@@ -79,6 +77,7 @@
         document.getElementById("loading-bar").style.display = "none";
       }).catch((err) => {
         alert("Error al cargar el juego: " + err);
+        console.error(err);
       });
     };
     document.body.appendChild(script);
